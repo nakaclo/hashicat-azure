@@ -27,12 +27,6 @@ resource "azurerm_resource_group" "myresourcegroup" {
   }
 }
 
-resource "azurerm_virtual_machine" "hogehoge" {
-    tags = {
-        Department = "devops",
-        Billable = "true"
-    }
-}
 resource "azurerm_virtual_network" "vnet" {
   name                = "${var.prefix}-vnet"
   location            = azurerm_resource_group.myresourcegroup.location
@@ -139,7 +133,10 @@ resource "azurerm_linux_virtual_machine" "catapp" {
 
   }
 
-  tags = {}
+  tags = {
+    Department = "devops",
+    Billable = true
+  }
 
   # Added to allow destroy to work correctly.
   depends_on = [azurerm_network_interface_security_group_association.catapp-nic-sg-ass]
